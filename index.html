@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Tischtennisstunde - Gestaffelt</title>
+</head>
+<body>
+
+    <h1>Bis zur letzten Tischtennisstunde sind es noch:</h1>
+    <hr>
+
+    <div id="countdown-container">
+        <p>Lade Countdown...</p>
+    </div>
+
+    <script>
+        const targetDate = new Date('2026-12-15T16:10:00').getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            const container = document.getElementById('countdown-container');
+
+            if (distance < 0) {
+                container.innerHTML = "<p><strong>Die letzte Tischtennisstunde ist bereits vorbei!</strong></p>";
+                return;
+            }
+
+            const totalSeconds = Math.floor(distance / 1000);
+            const totalMinutes = Math.floor(totalSeconds / 60);
+            const totalHours = Math.floor(totalMinutes / 60);
+
+            const days = Math.floor(totalHours / 24);
+            const hoursPart = totalHours % 24;
+            const minutesPart1 = totalMinutes % 60;
+            const secondsPart1 = totalSeconds % 60;
+
+            const minutesPart2 = totalMinutes % 60;
+            const secondsPart2 = totalSeconds % 60;
+
+            const secondsPart3 = totalSeconds % 60;
+
+            container.innerHTML = `
+                <p>
+                    <h2>${days} Tage, ${hoursPart} Stunden, ${minutesPart1} Minuten, ${secondsPart1} Sekunden</h2>
+                </p>
+                <p>
+                    <h2>${totalHours} Stunden, ${minutesPart2} Minuten, ${secondsPart2} Sekunden</h2>
+                </p>
+                <p>
+                    <h2>${totalMinutes} Minuten, ${secondsPart3} Sekunden</h2>
+                </p>
+                <p>
+                    <h2>${totalSeconds} Sekunden</h2>
+                </p>
+            `;
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+
+</body>
+</html>
